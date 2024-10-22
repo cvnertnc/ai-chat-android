@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
 
     setContent {
       CompositionLocalProvider(
-        LocalComposeNavigator provides composeNavigator
+        LocalComposeNavigator provides composeNavigator,
       ) {
         AIChatTheme {
           AIChatNavHost(composeNavigator = composeNavigator)

@@ -23,7 +23,7 @@ class AIChatNavigator @Inject constructor() : AppComposeNavigator<AIChatScreen>(
 
   override fun navigate(
     route: AIChatScreen,
-    optionsBuilder: (NavOptionsBuilder.() -> Unit)?
+    optionsBuilder: (NavOptionsBuilder.() -> Unit)?,
   ) {
     val options = optionsBuilder?.let { navOptions(it) }
     navigationCommands.tryEmit(ComposeNavigationCommand.NavigateToRoute(route, options))
@@ -35,8 +35,8 @@ class AIChatNavigator @Inject constructor() : AppComposeNavigator<AIChatScreen>(
         route,
         navOptions {
           popUpTo(0)
-        }
-      )
+        },
+      ),
     )
   }
 
@@ -49,8 +49,8 @@ class AIChatNavigator @Inject constructor() : AppComposeNavigator<AIChatScreen>(
       ComposeNavigationCommand.NavigateUpWithResult(
         key = key,
         result = result,
-        route = route
-      )
+        route = route,
+      ),
     )
   }
 }

@@ -56,21 +56,21 @@ import io.getstream.ai.chat.core.model.mock.MockUtils
 @Composable
 fun Channels(
   channelsViewModel: ChannelsViewModel = hiltViewModel(),
-  navigateToMessages: (Int, Channel) -> Unit
+  navigateToMessages: (Int, Channel) -> Unit,
 ) {
   val channels by channelsViewModel.channels.collectAsStateWithLifecycle()
 
   Box(
     modifier = Modifier
       .fillMaxSize()
-      .background(AIChatTheme.colors.background)
+      .background(AIChatTheme.colors.background),
   ) {
     Column(modifier = Modifier.fillMaxSize()) {
       ChannelAppBar()
 
       ChannelContentBody(
         channels = channels,
-        onChannelClick = { index, channel -> navigateToMessages.invoke(index, channel) }
+        onChannelClick = { index, channel -> navigateToMessages.invoke(index, channel) },
       )
     }
 
@@ -78,12 +78,12 @@ fun Channels(
       modifier = Modifier
         .align(Alignment.BottomEnd)
         .padding(32.dp),
-      onClick = { channelsViewModel.handleEvents(ChannelsEvent.CreateChannel) }
+      onClick = { channelsViewModel.handleEvents(ChannelsEvent.CreateChannel) },
     ) {
       Icon(
         imageVector = Icons.Default.Add,
         tint = AIChatTheme.colors.primary,
-        contentDescription = null
+        contentDescription = null,
       )
     }
   }
@@ -95,14 +95,14 @@ private fun ChannelAppBar() {
     modifier = Modifier
       .background(AIChatTheme.colors.background)
       .fillMaxWidth()
-      .padding(8.dp)
+      .padding(8.dp),
   ) {
     Text(
       modifier = Modifier.align(Alignment.Center),
       text = "AI ChatBot",
       fontWeight = FontWeight.Bold,
       color = AIChatTheme.colors.textHighEmphasis,
-      fontSize = 17.sp
+      fontSize = 17.sp,
     )
 
     Image(
@@ -111,7 +111,7 @@ private fun ChannelAppBar() {
         .clip(CircleShape)
         .size(42.dp),
       painter = painterResource(io.getstream.ai.chat.core.designsystem.R.drawable.ic_logo_stream),
-      contentDescription = null
+      contentDescription = null,
     )
   }
 }
@@ -119,7 +119,7 @@ private fun ChannelAppBar() {
 @Composable
 private fun ChannelContentBody(
   channels: List<Channel>,
-  onChannelClick: (Int, Channel) -> Unit
+  onChannelClick: (Int, Channel) -> Unit,
 ) {
   LazyColumn(modifier = Modifier.fillMaxSize()) {
     itemsIndexed(items = channels, key = { _, item -> item.id }) { index, channel ->
@@ -132,12 +132,12 @@ private fun ChannelContentBody(
 private fun ChannelItem(
   index: Int,
   channel: Channel,
-  onChannelClick: (Int, Channel) -> Unit
+  onChannelClick: (Int, Channel) -> Unit,
 ) {
   Box(
     modifier = Modifier
       .fillMaxWidth()
-      .clickable { onChannelClick.invoke(index, channel) }
+      .clickable { onChannelClick.invoke(index, channel) },
   ) {
     ListItem(
       modifier = Modifier.fillMaxWidth(),
@@ -149,7 +149,7 @@ private fun ChannelItem(
             .clip(CircleShape)
             .size(42.dp),
           painter = painterResource(io.getstream.ai.chat.core.designsystem.R.drawable.ic_gemini),
-          contentDescription = null
+          contentDescription = null,
         )
       },
       headlineContent = {
@@ -157,7 +157,7 @@ private fun ChannelItem(
           text = "Channel${channel.id.take(3)}",
           fontSize = 18.sp,
           fontWeight = FontWeight.Bold,
-          color = AIChatTheme.colors.textHighEmphasis
+          color = AIChatTheme.colors.textHighEmphasis,
         )
       },
       supportingContent = {
@@ -166,9 +166,9 @@ private fun ChannelItem(
           fontSize = 14.sp,
           color = AIChatTheme.colors.textLowEmphasis,
           overflow = TextOverflow.Ellipsis,
-          maxLines = 2
+          maxLines = 2,
         )
-      }
+      },
     )
 
     HorizontalDivider()
@@ -184,7 +184,7 @@ private fun ChannelPreview() {
 
       ChannelContentBody(
         channels = MockUtils.channelList,
-        onChannelClick = { _, _ -> }
+        onChannelClick = { _, _ -> },
       )
     }
   }

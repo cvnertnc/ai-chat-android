@@ -27,5 +27,5 @@ data class GeminiModel(
   val candidateCount: Int,
   val maxOutputTokens: Int,
   val topK: Int,
-  val topP: Float
+  val topP: Float,
 ) : Parcelable

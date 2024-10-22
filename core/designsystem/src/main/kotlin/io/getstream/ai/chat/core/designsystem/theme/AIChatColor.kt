@@ -46,7 +46,7 @@ public data class AIChatColor(
   val shimmerBase: Color,
   val shimmerHighlight: Color,
   val absoluteWhite: Color,
-  val absoluteBlack: Color
+  val absoluteBlack: Color,
 ) {
 
   public companion object {
@@ -82,7 +82,7 @@ public data class AIChatColor(
       shimmerBase = Black5,
       shimmerHighlight = ShimmerHighlight,
       absoluteWhite = Color.White,
-      absoluteBlack = Color.Black
+      absoluteBlack = Color.Black,
     )
 
     /**
@@ -117,7 +117,7 @@ public data class AIChatColor(
       shimmerBase = Color(0xFF6F6F6F),
       shimmerHighlight = ShimmerHighlight,
       absoluteWhite = Color.White,
-      absoluteBlack = Color.Black
+      absoluteBlack = Color.Black,
     )
   }
 }

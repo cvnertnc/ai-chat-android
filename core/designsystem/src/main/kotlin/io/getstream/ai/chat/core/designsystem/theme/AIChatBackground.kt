@@ -25,19 +25,19 @@ import androidx.compose.ui.unit.dp
 @Immutable
 public data class AIChatBackground(
   val color: Color = Color.Unspecified,
-  val tonalElevation: Dp = Dp.Unspecified
+  val tonalElevation: Dp = Dp.Unspecified,
 ) {
   public companion object {
     public fun defaultBackground(darkTheme: Boolean): AIChatBackground {
       return if (darkTheme) {
         AIChatBackground(
           color = Color.Black,
-          tonalElevation = 0.dp
+          tonalElevation = 0.dp,
         )
       } else {
         AIChatBackground(
           color = Color.White,
-          tonalElevation = 0.dp
+          tonalElevation = 0.dp,
         )
       }
     }

@@ -20,13 +20,13 @@ import com.skydoves.firebase.database.ktx.flow
 import io.getstream.ai.chat.core.model.Channel
 import io.getstream.ai.chat.core.model.Message
 import io.getstream.ai.chat.core.model.MessagesSnapshot
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.json.Json
+import javax.inject.Inject
 
 internal class MessagesRepositoryImpl @Inject constructor(
   private val databaseReference: DatabaseReference,
-  private val json: Json
+  private val json: Json,
 ) : MessagesRepository {
 
   override fun fetchMessages(index: Int): Flow<Result<MessagesSnapshot?>> {
@@ -34,7 +34,7 @@ internal class MessagesRepositoryImpl @Inject constructor(
       path = { snapshot -> snapshot.child("channels/$index") },
       decodeProvider = { jsonString ->
         json.decodeFromString(jsonString)
-      }
+      },
     )
   }
 
@@ -43,8 +43,8 @@ internal class MessagesRepositoryImpl @Inject constructor(
     messages.add(
       Message(
         sender = sender,
-        message = message
-      )
+        message = message,
+      ),
     )
     val newChannel = channel.copy(messages = messages)
     databaseReference.child("channels/$index").setValue(newChannel)

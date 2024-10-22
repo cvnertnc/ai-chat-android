@@ -42,7 +42,7 @@ import kotlinx.coroutines.flow.stateIn
 class MessagesViewModel @AssistedInject constructor(
   channelsRepository: ChannelsRepository,
   private val messagesRepository: MessagesRepository,
-  @Assisted private val index: Int
+  @Assisted private val index: Int,
 ) : ViewModel() {
 
   val channelState: StateFlow<Channel?> = channelsRepository.fetchChannel(index)
@@ -50,7 +50,7 @@ class MessagesViewModel @AssistedInject constructor(
     .stateIn(
       scope = viewModelScope,
       started = SharingStarted.WhileSubscribed(5000),
-      initialValue = null
+      initialValue = null,
     )
 
   val messages: StateFlow<List<Message>> = messagesRepository.fetchMessages(index = index)
@@ -62,7 +62,7 @@ class MessagesViewModel @AssistedInject constructor(
     .stateIn(
       scope = viewModelScope,
       started = SharingStarted.WhileSubscribed(5000),
-      initialValue = emptyList()
+      initialValue = emptyList(),
     )
 
   private val model = GenerativeModel(
@@ -74,7 +74,7 @@ class MessagesViewModel @AssistedInject constructor(
       maxOutputTokens = 500
       topK = 30
       topP = 0.5f
-    }
+    },
   )
 
   private val events: MutableStateFlow<MessagesEvent> = MutableStateFlow(MessagesEvent.Nothing)
@@ -87,7 +87,7 @@ class MessagesViewModel @AssistedInject constructor(
   }.stateIn(
     scope = viewModelScope,
     started = SharingStarted.WhileSubscribed(5000),
-    initialValue = null
+    initialValue = null,
   )
 
   private val generativeChat: Chat = model.startChat()
@@ -101,13 +101,13 @@ class MessagesViewModel @AssistedInject constructor(
     when (messagesEvent) {
       is MessagesEvent.SendMessage -> sendMessage(
         message = messagesEvent.message,
-        sender = messagesEvent.sender
+        sender = messagesEvent.sender,
       )
 
       is MessagesEvent.CompleteGeneration -> {
         sendMessage(
           message = messagesEvent.message,
-          sender = messagesEvent.sender
+          sender = messagesEvent.sender,
         )
       }
 
@@ -120,7 +120,7 @@ class MessagesViewModel @AssistedInject constructor(
       index = index,
       channel = channelState.value!!,
       message = message,
-      sender = sender
+      sender = sender,
     )
   }
 

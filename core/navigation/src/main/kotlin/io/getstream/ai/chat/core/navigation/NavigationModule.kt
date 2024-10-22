@@ -28,6 +28,6 @@ internal interface NavigationModule {
   @Binds
   @Singleton
   fun provideComposeNavigator(
-    pokedexComposeNavigator: AIChatNavigator
+    pokedexComposeNavigator: AIChatNavigator,
   ): AppComposeNavigator<AIChatScreen>
 }

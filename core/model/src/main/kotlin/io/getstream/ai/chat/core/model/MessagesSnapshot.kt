@@ -21,5 +21,5 @@ import kotlinx.serialization.Serializable
 @Immutable
 @Serializable
 data class MessagesSnapshot(
-  val messages: List<Message>
+  val messages: List<Message>,
 )

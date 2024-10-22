@@ -16,15 +16,15 @@
 package io.getstream.ai.chat.core.model
 
 import androidx.compose.runtime.Immutable
-import java.util.UUID
 import kotlinx.serialization.Serializable
+import java.util.UUID
 
 @Immutable
 @Serializable
 data class Message(
   val id: String = UUID.randomUUID().toString(),
   val sender: String,
-  val message: String
+  val message: String,
 ) {
 
   val isBot: Boolean = sender == "AI"

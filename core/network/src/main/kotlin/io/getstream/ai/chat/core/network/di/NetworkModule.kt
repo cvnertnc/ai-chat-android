@@ -23,8 +23,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.getstream.ai.chat.core.network.BuildConfig
-import javax.inject.Singleton
 import kotlinx.serialization.json.Json
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

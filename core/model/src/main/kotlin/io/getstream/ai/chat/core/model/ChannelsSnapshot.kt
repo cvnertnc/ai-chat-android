@@ -21,5 +21,5 @@ import kotlinx.serialization.Serializable
 @Immutable
 @Serializable
 data class ChannelsSnapshot(
-  val channels: List<Channel>
+  val channels: List<Channel>,
 )

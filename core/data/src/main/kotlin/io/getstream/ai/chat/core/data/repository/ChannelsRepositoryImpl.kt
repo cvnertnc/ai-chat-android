@@ -20,14 +20,14 @@ import com.skydoves.firebase.database.ktx.flow
 import io.getstream.ai.chat.core.model.Channel
 import io.getstream.ai.chat.core.model.ChannelsSnapshot
 import io.getstream.ai.chat.core.model.Message
-import java.util.UUID
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.json.Json
+import java.util.UUID
+import javax.inject.Inject
 
 internal class ChannelsRepositoryImpl @Inject constructor(
   private val databaseReference: DatabaseReference,
-  private val json: Json
+  private val json: Json,
 ) : ChannelsRepository {
 
   override fun fetchChannels(): Flow<Result<ChannelsSnapshot?>> {
@@ -35,7 +35,7 @@ internal class ChannelsRepositoryImpl @Inject constructor(
       path = { snapshot -> snapshot },
       decodeProvider = { jsonString ->
         json.decodeFromString(jsonString)
-      }
+      },
     )
   }
 
@@ -44,14 +44,14 @@ internal class ChannelsRepositoryImpl @Inject constructor(
       path = { snapshot -> snapshot.child("channels/$index") },
       decodeProvider = { jsonString ->
         json.decodeFromString(jsonString)
-      }
+      },
     )
   }
 
   override fun addChannel(channels: List<Channel>) {
     val newChannels = channels + Channel(
       id = UUID.randomUUID().toString(),
-      messages = listOf(Message.defaultMessage())
+      messages = listOf(Message.defaultMessage()),
     )
 
     databaseReference.child("channels").setValue(newChannels)

@@ -20,7 +20,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.getstream.ai.chat.core.data.repository.ChannelsRepository
 import io.getstream.ai.chat.core.model.Channel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
@@ -28,10 +27,11 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
 @HiltViewModel
 class ChannelsViewModel @Inject constructor(
-  private val channelsRepository: ChannelsRepository
+  private val channelsRepository: ChannelsRepository,
 ) : ViewModel() {
 
   val channels: StateFlow<List<Channel>> = channelsRepository.fetchChannels()
@@ -43,7 +43,7 @@ class ChannelsViewModel @Inject constructor(
     .stateIn(
       scope = viewModelScope,
       started = SharingStarted.WhileSubscribed(5000),
-      initialValue = emptyList()
+      initialValue = emptyList(),
     )
 
   fun handleEvents(channelsEvent: ChannelsEvent) {

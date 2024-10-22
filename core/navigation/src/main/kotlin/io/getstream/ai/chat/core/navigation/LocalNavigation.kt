@@ -22,12 +22,12 @@ import androidx.compose.runtime.compositionLocalOf
 
 public val LocalComposeNavigator:
   ProvidableCompositionLocal<AppComposeNavigator<AIChatScreen>> =
-    compositionLocalOf {
-      error(
-        "No AppComposeNavigator provided! " +
-          "Make sure to wrap all usages of UI components in ServerDrivenTheme."
-      )
-    }
+  compositionLocalOf {
+    error(
+      "No AppComposeNavigator provided! " +
+        "Make sure to wrap all usages of UI components in ServerDrivenTheme.",
+    )
+  }
 
 /**
  * Retrieves the current [AppComposeNavigator] at the call site's position in the hierarchy.

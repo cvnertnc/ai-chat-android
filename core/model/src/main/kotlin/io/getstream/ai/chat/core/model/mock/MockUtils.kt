@@ -27,9 +27,9 @@ object MockUtils {
       messages = listOf(
         Message(
           sender = "AI",
-          message = "Hi, nice to meet you!"
-        )
-      )
+          message = "Hi, nice to meet you!",
+        ),
+      ),
     )
 
   val channelList: List<Channel>

@@ -75,7 +75,7 @@ import java.util.UUID
 fun Messages(
   index: Int,
   channel: Channel,
-  onBackClick: () -> Unit
+  onBackClick: () -> Unit,
 ) {
   val messagesViewModel = hiltViewModel<MessagesViewModel, MessagesViewModel.Factory> { factory ->
     factory.create(index)
@@ -96,8 +96,8 @@ fun Messages(
     messagesViewModel.handleEvents(
       MessagesEvent.CompleteGeneration(
         message = generatedMessage,
-        sender = "AI"
-      )
+        sender = "AI",
+      ),
     )
     generatedMessage = ""
   }
@@ -114,10 +114,10 @@ fun Messages(
         messagesViewModel.handleEvents(
           MessagesEvent.SendMessage(
             message = text,
-            sender = "User"
-          )
+            sender = "User",
+          ),
         )
-      }
+      },
     )
   }
 
@@ -131,13 +131,13 @@ fun Messages(
 @Composable
 private fun MessagesAppBar(
   channel: Channel,
-  onBackClick: () -> Unit
+  onBackClick: () -> Unit,
 ) {
   Box(
     modifier = Modifier
       .background(AIChatTheme.colors.background)
       .fillMaxWidth()
-      .padding(8.dp)
+      .padding(8.dp),
   ) {
     Icon(
       modifier = Modifier
@@ -147,7 +147,7 @@ private fun MessagesAppBar(
         .clickable { onBackClick.invoke() },
       tint = Color.White,
       imageVector = Icons.AutoMirrored.Default.ArrowBack,
-      contentDescription = null
+      contentDescription = null,
     )
 
     Text(
@@ -155,7 +155,7 @@ private fun MessagesAppBar(
       text = "Channel${channel.id.take(3)}",
       fontWeight = FontWeight.Bold,
       color = AIChatTheme.colors.textHighEmphasis,
-      fontSize = 17.sp
+      fontSize = 17.sp,
     )
   }
 }
@@ -164,14 +164,14 @@ private fun MessagesAppBar(
 private fun ColumnScope.MessageList(
   messages: List<Message>,
   state: LazyListState,
-  generatedMessage: String
+  generatedMessage: String,
 ) {
   LazyColumn(
     state = state,
     modifier = Modifier
       .fillMaxSize()
       .weight(1f)
-      .padding(vertical = 16.dp, horizontal = 12.dp)
+      .padding(vertical = 16.dp, horizontal = 12.dp),
   ) {
     items(items = messages, key = { it.id }) { message ->
       if (message.isBot) {
@@ -188,8 +188,8 @@ private fun ColumnScope.MessageList(
             message = Message(
               id = UUID.randomUUID().toString(),
               message = generatedMessage,
-              sender = "AI"
-            )
+              sender = "AI",
+            ),
           )
 
           CircularProgressIndicator(modifier = Modifier.size(34.dp))
@@ -205,7 +205,7 @@ private fun BotMessageItem(message: Message) {
     modifier = Modifier
       .fillMaxWidth()
       .padding(bottom = 12.dp),
-    contentAlignment = Alignment.CenterStart
+    contentAlignment = Alignment.CenterStart,
   ) {
     Row {
       Image(
@@ -213,7 +213,7 @@ private fun BotMessageItem(message: Message) {
           .clip(CircleShape)
           .size(42.dp),
         painter = painterResource(io.getstream.ai.chat.core.designsystem.R.drawable.ic_gemini),
-        contentDescription = null
+        contentDescription = null,
       )
 
       Spacer(modifier = Modifier.width(8.dp))
@@ -222,11 +222,11 @@ private fun BotMessageItem(message: Message) {
         modifier = Modifier
           .background(
             color = AIChatTheme.colors.primary,
-            shape = RoundedCornerShape(12.dp).copy(bottomStart = CornerSize(0.dp))
+            shape = RoundedCornerShape(12.dp).copy(bottomStart = CornerSize(0.dp)),
           )
           .padding(12.dp),
         text = message.message,
-        color = Color.White
+        color = Color.White,
       )
     }
   }
@@ -238,17 +238,17 @@ private fun UserMessageItem(message: Message) {
     modifier = Modifier
       .fillMaxWidth()
       .padding(bottom = 12.dp),
-    contentAlignment = Alignment.CenterEnd
+    contentAlignment = Alignment.CenterEnd,
   ) {
     Text(
       modifier = Modifier
         .background(
           color = AIChatTheme.colors.tertiary,
-          shape = RoundedCornerShape(12.dp).copy(bottomEnd = CornerSize(0.dp))
+          shape = RoundedCornerShape(12.dp).copy(bottomEnd = CornerSize(0.dp)),
         )
         .padding(12.dp),
       text = message.message,
-      color = Color.White
+      color = Color.White,
     )
   }
 }
@@ -257,14 +257,14 @@ private fun UserMessageItem(message: Message) {
 private fun MessageInput(
   text: String,
   onTextChanged: (String) -> Unit,
-  onSendMessage: (String) -> Unit
+  onSendMessage: (String) -> Unit,
 ) {
   val canSend = text.isNotBlank()
 
   Row(
     modifier = Modifier
       .fillMaxWidth()
-      .padding(vertical = 8.dp, horizontal = 16.dp)
+      .padding(vertical = 8.dp, horizontal = 16.dp),
   ) {
     GlideImage(
       imageModel = { "https://placecats.com/300/200" },
@@ -272,7 +272,7 @@ private fun MessageInput(
         .padding(end = 8.dp)
         .size(48.dp)
         .clip(CircleShape)
-        .align(Alignment.CenterVertically)
+        .align(Alignment.CenterVertically),
     )
 
     TextField(
@@ -296,7 +296,7 @@ private fun MessageInput(
           } else {
             AIChatTheme.colors.black20
           },
-          contentDescription = null
+          contentDescription = null,
         )
       },
       shape = RoundedCornerShape(12.dp),
@@ -309,10 +309,10 @@ private fun MessageInput(
         disabledContainerColor = AIChatTheme.colors.black80,
         focusedIndicatorColor = Color.Transparent,
         unfocusedIndicatorColor = Color.Transparent,
-        disabledIndicatorColor = Color.Transparent
+        disabledIndicatorColor = Color.Transparent,
       ),
       keyboardOptions = KeyboardOptions(
-        imeAction = ImeAction.Send
+        imeAction = ImeAction.Send,
       ),
       keyboardActions = KeyboardActions(
         onSend = {
@@ -320,15 +320,15 @@ private fun MessageInput(
             onSendMessage.invoke(text)
             onTextChanged.invoke("")
           }
-        }
+        },
       ),
       placeholder = {
         Text(
           text = "Ask me anything!",
           color = AIChatTheme.colors.textPlaceholder,
-          fontSize = 14.sp
+          fontSize = 14.sp,
         )
-      }
+      },
     )
   }
 }
@@ -344,19 +344,19 @@ private fun MessageListPreview() {
         messages = listOf(
           Message(
             sender = "AI",
-            message = "How can I help you?"
+            message = "How can I help you?",
           ),
           Message(
             sender = "User",
-            message = "What is Android?"
+            message = "What is Android?",
           ),
           Message(
             sender = "AI",
-            message = "Android is Android"
-          )
+            message = "Android is Android",
+          ),
         ),
         state = rememberLazyListState(),
-        generatedMessage = ""
+        generatedMessage = "",
       )
     }
   }

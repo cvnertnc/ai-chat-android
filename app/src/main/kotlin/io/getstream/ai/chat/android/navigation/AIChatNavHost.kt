@@ -37,7 +37,7 @@ fun AIChatNavHost(
   modifier: Modifier = Modifier,
   composeNavigator: AppComposeNavigator<AIChatScreen>,
   navController: NavHostController = rememberNavController(),
-  startDestination: AIChatScreen = AIChatScreen.Channels
+  startDestination: AIChatScreen = AIChatScreen.Channels,
 ) {
   LaunchedEffect(Unit) {
     composeNavigator.handleNavigationCommands(navController)
@@ -49,24 +49,24 @@ fun AIChatNavHost(
       .statusBarsPadding()
       .background(AIChatTheme.colors.background),
     navController = navController,
-    startDestination = startDestination
+    startDestination = startDestination,
   ) {
     composable<AIChatScreen.Channels> {
       Channels { index, channel ->
         composeNavigator.navigate(
-          AIChatScreen.Messages(index = index, channel = channel)
+          AIChatScreen.Messages(index = index, channel = channel),
         )
       }
     }
 
     composable<AIChatScreen.Messages>(
-      typeMap = AIChatScreen.Messages.typeMap
+      typeMap = AIChatScreen.Messages.typeMap,
     ) { backStackEntry ->
       val root: AIChatScreen.Messages = backStackEntry.toRoute()
       Messages(
         index = root.index,
         channel = root.channel,
-        onBackClick = { composeNavigator.navigateUp() }
+        onBackClick = { composeNavigator.navigateUp() },
       )
     }
   }

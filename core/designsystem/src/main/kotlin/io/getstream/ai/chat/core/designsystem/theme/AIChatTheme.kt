@@ -39,11 +39,11 @@ public fun AIChatTheme(
     AIChatColor.defaultColors()
   },
   background: AIChatBackground = AIChatBackground.defaultBackground(darkTheme),
-  content: @Composable () -> Unit
+  content: @Composable () -> Unit,
 ) {
   CompositionLocalProvider(
     LocalColors provides colors,
-    LocalBackgroundTheme provides background
+    LocalBackgroundTheme provides background,
   ) {
     content()
   }

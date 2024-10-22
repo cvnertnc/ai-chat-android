@@ -23,5 +23,5 @@ import kotlin.annotation.AnnotationRetention.RUNTIME
 annotation class Dispatcher(val aiChatDispatchers: AIChatDispatchers)
 
 enum class AIChatDispatchers {
-  IO
+  IO,
 }

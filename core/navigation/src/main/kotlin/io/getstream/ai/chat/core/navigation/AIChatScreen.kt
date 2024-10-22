@@ -20,8 +20,8 @@ import androidx.compose.runtime.Stable
 import androidx.navigation.NavType
 import io.getstream.ai.chat.core.model.Channel
 import io.getstream.ai.chat.core.navigation.types.ChannelNavType
-import kotlin.reflect.typeOf
 import kotlinx.serialization.Serializable
+import kotlin.reflect.typeOf
 
 @Stable
 sealed interface AIChatScreen {
