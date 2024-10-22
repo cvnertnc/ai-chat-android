@@ -10,7 +10,7 @@
 
 The purpose of this repository is to demonstrate below:
 
-- Demonstrates [Gemini API](https://ai.google.dev/tutorials/android_quickstart) for Android and handle the chunck stream responses as UI states.
+- Demonstrates [Gemini API](https://ai.google.dev/tutorials/android_quickstart) for Android and handle the chunk stream responses as UI states.
 - Implementing entire UI elements with Jetpack Compose.
 - Implementation of Android architecture components with Jetpack libraries such as Hilt.
 - Performing background tasks with Kotlin Coroutines.
