@@ -36,6 +36,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel(assistedFactory = MessagesViewModel.Factory::class)
@@ -46,7 +47,7 @@ class MessagesViewModel @AssistedInject constructor(
 ) : ViewModel() {
 
   val channelState: StateFlow<Channel?> = channelsRepository.fetchChannel(index)
-    .flatMapLatest { result -> flowOf(result.getOrNull()) }
+    .mapLatest { result -> result.getOrNull() }
     .stateIn(
       scope = viewModelScope,
       started = SharingStarted.WhileSubscribed(5000),
@@ -54,9 +55,7 @@ class MessagesViewModel @AssistedInject constructor(
     )
 
   val messages: StateFlow<List<Message>> = messagesRepository.fetchMessages(index = index)
-    .flatMapLatest { result ->
-      flowOf(result.getOrNull())
-    }
+    .mapLatest { result -> result.getOrNull() }
     .filterNotNull()
     .map { snapshot -> snapshot.messages }
     .stateIn(

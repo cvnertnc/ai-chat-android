@@ -23,9 +23,8 @@ import io.getstream.ai.chat.core.model.Channel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -35,9 +34,7 @@ class ChannelsViewModel @Inject constructor(
 ) : ViewModel() {
 
   val channels: StateFlow<List<Channel>> = channelsRepository.fetchChannels()
-    .flatMapLatest { result ->
-      flowOf(result.getOrNull())
-    }
+    .mapLatest { result -> result.getOrNull() }
     .filterNotNull()
     .map { snapshot -> snapshot.channels }
     .stateIn(
