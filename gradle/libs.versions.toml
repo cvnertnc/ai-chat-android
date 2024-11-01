@@ -11,6 +11,7 @@ androidxLifecycle = "2.8.7"
 androidxProfileinstaller = "1.4.1"
 androidxStartup = "1.2.0"
 androidxTest = "1.6.2"
+composeMarkdown = "0.5.4"
 composeStableMarker = "1.0.5"
 generativeAI = "0.9.0"
 streamLog = "1.3.1"
@@ -81,6 +82,7 @@ firebase-database = { module = "com.google.firebase:firebase-database-ktx" }
 firebase-remote-config = { module = "com.google.firebase:firebase-config" }
 firebase-database-ktx = { module = "com.github.skydoves:firebase-database-ktx", version.ref = "firebaseKtx" }
 google-generativeai = { module = "com.google.ai.client.generativeai:generativeai", version.ref = "generativeAI" }
+compose-markdown = { module = "com.github.jeziellago:compose-markdown", version.ref = "composeMarkdown" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
