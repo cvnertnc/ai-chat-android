@@ -70,7 +70,7 @@ class MessagesViewModel @AssistedInject constructor(
     generationConfig = generationConfig {
       temperature = 0.5f
       candidateCount = 1
-      maxOutputTokens = 300
+      maxOutputTokens = 1000
       topK = 30
       topP = 0.5f
     },

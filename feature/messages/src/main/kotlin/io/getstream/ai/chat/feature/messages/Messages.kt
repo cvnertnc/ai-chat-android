@@ -64,6 +64,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.skydoves.landscapist.glide.GlideImage
+import dev.jeziellago.compose.markdowntext.MarkdownText
 import io.getstream.ai.chat.core.designsystem.theme.AIChatPreview
 import io.getstream.ai.chat.core.designsystem.theme.AIChatTheme
 import io.getstream.ai.chat.core.model.Channel
@@ -218,15 +219,15 @@ private fun BotMessageItem(message: Message) {
 
       Spacer(modifier = Modifier.width(8.dp))
 
-      Text(
+      MarkdownText(
         modifier = Modifier
           .background(
             color = AIChatTheme.colors.primary,
             shape = RoundedCornerShape(12.dp).copy(bottomStart = CornerSize(0.dp)),
           )
           .padding(12.dp),
-        text = message.message,
-        color = Color.White,
+        markdown = message.message,
+        style = TextStyle(color = Color.White),
       )
     }
   }

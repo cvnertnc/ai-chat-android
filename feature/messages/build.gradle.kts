@@ -37,4 +37,5 @@ secrets {
 
 dependencies {
   implementation(libs.stream.log)
+  implementation("com.github.jeziellago:compose-markdown:0.5.4")
 }
