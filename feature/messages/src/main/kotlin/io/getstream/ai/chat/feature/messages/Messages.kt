@@ -47,6 +47,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -92,21 +93,35 @@ fun Messages(
     latestResponse?.let { generatedMessage += it }
   }
 
-  val isCompleted = messagesViewModel.isCompleted(generatedMessage)
-  if (isCompleted) {
-    messagesViewModel.handleEvents(
-      MessagesEvent.CompleteGeneration(
-        message = generatedMessage,
-        sender = "AI",
-      ),
-    )
-    generatedMessage = ""
+  val isCompleted by remember { derivedStateOf { messagesViewModel.isCompleted(generatedMessage) } }
+  LaunchedEffect(key1 = isCompleted) {
+    if (isCompleted) {
+      messagesViewModel.handleEvents(
+        MessagesEvent.CompleteGeneration(
+          message = generatedMessage,
+          sender = "AI",
+        ),
+      )
+      generatedMessage = ""
+    }
+  }
+
+  LaunchedEffect(key1 = messages, key2 = generatedMessage) {
+    if (messages.isNotEmpty()) {
+      state.scrollToItem(messages.lastIndex)
+    }
   }
 
   Column(modifier = Modifier.fillMaxSize()) {
     MessagesAppBar(channel = channel, onBackClick = onBackClick)
 
-    MessageList(messages = messages, state = state, generatedMessage = generatedMessage)
+    if (channelState != null) {
+      MessageList(messages = messages, state = state, generatedMessage = generatedMessage)
+    } else {
+      Box(modifier = Modifier.fillMaxSize()) {
+        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+      }
+    }
 
     MessageInput(
       text = text,
@@ -120,12 +135,6 @@ fun Messages(
         )
       },
     )
-  }
-
-  LaunchedEffect(key1 = messages, key2 = generatedMessage) {
-    if (messages.isNotEmpty()) {
-      state.scrollToItem(messages.lastIndex)
-    }
   }
 }
 
