@@ -78,19 +78,6 @@ class MessagesViewModel @AssistedInject constructor(
     },
   )
 
-  private val events: MutableStateFlow<MessagesEvent> = MutableStateFlow(MessagesEvent.Nothing)
-  val latestResponse: StateFlow<String?> = events.flatMapLatest { event ->
-    if (event is MessagesEvent.SendMessage) {
-      generativeChat.value.sendMessageStream(event.message).map { it.text }
-    } else {
-      flowOf("")
-    }
-  }.stateIn(
-    scope = viewModelScope,
-    started = SharingStarted.WhileSubscribed(5000),
-    initialValue = null,
-  )
-
   private val generativeChat: StateFlow<Chat> = messages.mapLatest { messageList ->
     model.startChat(
       history = messageList.map { singleMessage ->
@@ -103,6 +90,19 @@ class MessagesViewModel @AssistedInject constructor(
     scope = viewModelScope,
     started = SharingStarted.WhileSubscribed(5000),
     initialValue = model.startChat(),
+  )
+
+  private val events: MutableStateFlow<MessagesEvent> = MutableStateFlow(MessagesEvent.Nothing)
+  val latestResponse: StateFlow<String?> = events.flatMapLatest { event ->
+    if (event is MessagesEvent.SendMessage) {
+      generativeChat.value.sendMessageStream(event.message).map { it.text }
+    } else {
+      flowOf("")
+    }
+  }.stateIn(
+    scope = viewModelScope,
+    started = SharingStarted.WhileSubscribed(5000),
+    initialValue = null,
   )
 
   fun isCompleted(text: String?): Boolean {
