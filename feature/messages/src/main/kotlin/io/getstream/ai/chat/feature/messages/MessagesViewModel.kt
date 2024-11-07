@@ -54,10 +54,10 @@ class MessagesViewModel @AssistedInject constructor(
       initialValue = null,
     )
 
-  val messages: StateFlow<List<Message>> = messagesRepository.fetchMessages(index = index)
-    .mapLatest { result -> result.getOrNull() }
-    .filterNotNull()
-    .map { snapshot -> snapshot.messages }
+  val messages: StateFlow<List<Message>> = channelState
+    .mapLatest {
+      it?.messages
+    }.filterNotNull()
     .stateIn(
       scope = viewModelScope,
       started = SharingStarted.WhileSubscribed(5000),

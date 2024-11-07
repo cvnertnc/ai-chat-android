@@ -16,12 +16,8 @@
 package io.getstream.ai.chat.core.data.repository
 
 import io.getstream.ai.chat.core.model.Channel
-import io.getstream.ai.chat.core.model.MessagesSnapshot
-import kotlinx.coroutines.flow.Flow
 
 interface MessagesRepository {
-
-  fun fetchMessages(index: Int): Flow<Result<MessagesSnapshot?>>
 
   fun sendMessage(index: Int, channel: Channel, message: String, sender: String)
 }

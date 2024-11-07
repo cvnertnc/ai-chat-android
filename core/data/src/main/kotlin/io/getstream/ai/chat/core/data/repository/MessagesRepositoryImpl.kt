@@ -16,27 +16,13 @@
 package io.getstream.ai.chat.core.data.repository
 
 import com.google.firebase.database.DatabaseReference
-import com.skydoves.firebase.database.ktx.flow
 import io.getstream.ai.chat.core.model.Channel
 import io.getstream.ai.chat.core.model.Message
-import io.getstream.ai.chat.core.model.MessagesSnapshot
-import kotlinx.coroutines.flow.Flow
-import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 internal class MessagesRepositoryImpl @Inject constructor(
   private val databaseReference: DatabaseReference,
-  private val json: Json,
 ) : MessagesRepository {
-
-  override fun fetchMessages(index: Int): Flow<Result<MessagesSnapshot?>> {
-    return databaseReference.flow(
-      path = { snapshot -> snapshot.child("channels/$index") },
-      decodeProvider = { jsonString ->
-        json.decodeFromString(jsonString)
-      },
-    )
-  }
 
   override fun sendMessage(index: Int, channel: Channel, message: String, sender: String) {
     val messages = channel.messages.toMutableList()
