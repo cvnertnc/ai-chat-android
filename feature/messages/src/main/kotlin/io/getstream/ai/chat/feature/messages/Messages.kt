@@ -230,6 +230,7 @@ private fun BotMessageItem(message: Message) {
 
       MarkdownText(
         modifier = Modifier
+          .fillMaxWidth()
           .background(
             color = AIChatTheme.colors.primary,
             shape = RoundedCornerShape(12.dp).copy(bottomStart = CornerSize(0.dp)),

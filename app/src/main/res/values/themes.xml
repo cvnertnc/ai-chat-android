@@ -16,5 +16,5 @@
 -->
 <resources>
 
-    <style name="Theme.AIChatAndroid" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.AIChatAndroid" parent="Theme.AppCompat.DayNight" />
 </resources>
