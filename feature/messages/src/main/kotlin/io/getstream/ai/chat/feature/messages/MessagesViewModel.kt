@@ -19,6 +19,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.ai.client.generativeai.Chat
 import com.google.ai.client.generativeai.GenerativeModel
+import com.google.ai.client.generativeai.type.Content
+import com.google.ai.client.generativeai.type.TextPart
 import com.google.ai.client.generativeai.type.asTextOrNull
 import com.google.ai.client.generativeai.type.generationConfig
 import dagger.assisted.Assisted
@@ -79,7 +81,7 @@ class MessagesViewModel @AssistedInject constructor(
   private val events: MutableStateFlow<MessagesEvent> = MutableStateFlow(MessagesEvent.Nothing)
   val latestResponse: StateFlow<String?> = events.flatMapLatest { event ->
     if (event is MessagesEvent.SendMessage) {
-      generativeChat.sendMessageStream(event.message).map { it.text }
+      generativeChat.value.sendMessageStream(event.message).map { it.text }
     } else {
       flowOf("")
     }
@@ -89,10 +91,22 @@ class MessagesViewModel @AssistedInject constructor(
     initialValue = null,
   )
 
-  private val generativeChat: Chat = model.startChat()
+  private val generativeChat: StateFlow<Chat> = messages.mapLatest { messageList ->
+    model.startChat(
+      history = messageList.map { singleMessage ->
+        Content(
+          parts = listOf(TextPart(singleMessage.message)),
+        )
+      },
+    )
+  }.stateIn(
+    scope = viewModelScope,
+    started = SharingStarted.WhileSubscribed(5000),
+    initialValue = model.startChat(),
+  )
 
   fun isCompleted(text: String?): Boolean {
-    return generativeChat.history.any { it.parts.any { it.asTextOrNull() == text } }
+    return generativeChat.value.history.any { it.parts.any { it.asTextOrNull() == text } }
   }
 
   fun handleEvents(messagesEvent: MessagesEvent) {
