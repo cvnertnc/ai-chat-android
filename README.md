@@ -55,11 +55,7 @@ To build this project properly, you should follow the instructions below:
 
 1. Following the [Firebase setup guidelines](https://firebase.google.com/docs/android/setup), download the **google-services.json** and place it into the `app` directory on this project.
 
-2. Next, set up the [Firebase Realtime Database](https://firebase.google.com/docs/database) in your Firebase dashboard. Once that's done, you can import the JSON file like the image below:
-
-![import](figures/import-json.png)
-
-3. Next, create a file named `secrets.properties` in the root directory of this project, and copy & paste your Realtime Database URL into it, as shown in the example below:
+2. Next, create a file named `secrets.properties` in the root directory of this project, and copy & paste your Realtime Database URL into it, as shown in the example below:
 
 ![import](figures/db-url.png)
 
@@ -67,15 +63,15 @@ To build this project properly, you should follow the instructions below:
 REALTIME_DATABASE_URL=..
 ```
 
-4. Go to **[Google AI Studio](https://makersuite.google.com/app/apikey)**, login with your Google account and select the **Get API key** on the menu left like the image below:
+3. Go to **[Google AI Studio](https://makersuite.google.com/app/apikey)**, login with your Google account and select the **Get API key** on the menu left like the image below:
 
 ![gemini](figures/gemini0.png)
 
-5. Create your API key for using generative AI SDKs, and you'll get one like the image below:
+4. Create your API key for using generative AI SDKs, and you'll get one like the image below:
 
 ![gemini](figures/gemini1.png)
 
-6. Add the key to the `secrets.properties` file like the below:
+5. Add the key to the `secrets.properties` file like the below:
 
 ![gemini](figures/gemini2.png)
 
@@ -84,7 +80,7 @@ GEMINI_API_KEY=..
 REALTIME_DATABASE_URL=..
 ```
 
-7. Build and run the project.
+6. Build and run the project.
 
 ## 🛠 Tech Stack & Open Source Libraries
 - Minimum SDK level 24.
